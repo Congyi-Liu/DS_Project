@@ -1,0 +1,54 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "MAE Comparison of Different Machine Learning Models",
+    "data": {
+        "values": [
+            {
+                "Model": "OLS",
+                "MAE": 2.620909128798029
+            },
+            {
+                "Model": "Elastic Net",
+                "MAE": 2.541862077006944
+            },
+            {
+                "Model": "Random Forest",
+                "MAE": 0.9861540569305418
+            },
+            {
+                "Model": "Neural Network",
+                "MAE": 2.6156003838357496
+            }
+        ]
+    },
+    "mark": {
+        "type": "bar",
+        "width": 60 
+    },
+    "encoding": {
+        "x": {
+            "field": "Model",
+            "type": "nominal",
+            "axis": {
+                "title": "Machine Learning Model"
+            }
+        },
+        "y": {
+            "field": "MAE",
+            "type": "quantitative",
+            "axis": {
+                "title": "Mean Absolute Error (MAE)"
+            }
+        },
+        "color": {
+            "value": "skyblue"
+        }
+    },
+    "title": "MAE Comparison of Different Machine Learning Models",
+    "config": {
+        "view": {
+            "width": 600, 
+            "height": 400
+        }
+    }
+}

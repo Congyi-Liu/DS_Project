@@ -1,2 +1,2 @@
-# DS_Project
-Data Science Project
+# project
+ds project

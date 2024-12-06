@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Congyi Liu's Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <style>
+        body {
+            background-color: #F0F0F0;
+            font-family: 'Lora', serif;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        h1, h2 {
+            font-size: 1.5em;
+            color: #5C4033;
+            text-align: center;
+        }
+        p {
+            font-size: 1rem;
+            color: #5C4033;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .chart-description p {
+            font-family: 'Lora', serif;
+        }
+        #chartGrid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        section {
+            margin-bottom: 2.5em;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        figure {
+            width: 100%;
+            max-width: 700px;
+            height: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1>Volatility Prediction Data Science Project</h1>
+        <p>By Congyi Liu | 6 December 2024</p>
+        <p>This project explores stock volatility from a macroeconomic perspective.</p>
+
+        <div class="tabs">
+
+            <div id="aims" class="tab-content active">
+                <h3>Aims</h3>
+                <p>The primary aim of this project is to predict the Volatility Index (VIX) using machine learning models. The VIX serves as a critical metric for understanding market volatility and investor sentiment, providing invaluable insights for policymakers, risk managers, and institutional investors. Traditional econometric models often fail to address non-linear relationships and structural changes, which are increasingly prominent in modern financial systems. By leveraging advanced machine learning techniques, this project aims to create a robust predictive model that links macroeconomic indicators to market behavior, facilitating more accurate forecasting. This work not only demonstrates the potential of machine learning to improve financial decision-making but also highlights its broader implications for managing uncertainty in dynamic markets.
+                </p>
+            </div>
+            <div id="data" class="tab-content">
+                <h3>Data</h3>
+                <p>The dataset was sourced from Yahoo Finance and the Federal Reserve Economic Data (FRED) repository, covering financial indicators (e.g., VIX) and macroeconomic metrics (e.g., GDP growth, unemployment rates). The data spans over a year in 2024 and integrates daily, monthly, and quarterly information. Automation for data extraction was achieved using Python libraries such as yfinance and FRED API. This approach ensured reproducibility and allowed for seamless updates as new data became available. Cleaning and transformation steps, including imputation for missing values, were automated using scripts to ensure consistency and scalability. This setup supports easy replication and extension for future studies.
+                </p>
+            </div>
+            <div id="challenges" class="tab-content">
+                <h3>Challenges</h3>
+                <p>Handling missing and inconsistent data was a significant challenge, especially given the diversity of sources and temporal granularity in the dataset. Forward filling was employed to address missing values, while interquartile range analysis and boxplots were used to detect and treat outliers. Scaling numerical features with StandardScaler ensured uniformity and prevented dominant features from skewing model training. Another challenge was designing features that captured both immediate and lagged market responses. Advanced exploratory techniques, such as correlation heatmaps and visualizations, were used to refine the feature set. Tools like Python’s scikit-learn and visualization libraries such as matplotlib and seaborn played a vital role in overcoming these obstacles.
+                </p>
+            </div>
+            <div id="conclusion" class="tab-content">
+                <h3>Conclusion</h3>
+                <p>The project concluded that Random Forest models performed best for predicting the VIX, achieving a Mean Absolute Error (MAE) of 0.98. This highlights the ensemble method's ability to capture complex, non-linear relationships in financial data. Neural Networks also showed promise, particularly in adapting to sophisticated patterns after hyperparameter tuning. However, simpler models like Ordinary Least Squares and Elastic Net were limited in handling the dataset's complexities. The findings underscore the transformative potential of machine learning in financial forecasting. Future work could explore additional data sources, such as real-time streams or sentiment analysis, and implement advanced algorithms like LightGBM or LSTM for improved accuracy. These advancements could further enhance predictive capabilities and decision-making in volatile financial environments.
+                </p>
+            </div>
+        </div>
+
+        <section>
+            <div class="chart-description">
+                <h2>Visualisation 1: VIX Line Chart</h2>
+                <figure id="Location1"></figure>
+            </div>
+        </section>
+        <section>
+            <div class="chart-description">
+                <h2>Visualisation 2: SP500 Line Chart</h2>
+                <figure id="Location2"></figure>
+            </div>
+        </section>
+        <section>
+            <div class="chart-description">
+                <h2>Visualisation 3: Correlation Matrix</h2>
+                <img src="plots/correlation_matrix.png" alt="Correlation Matrix">
+            </div>
+        </section>
+        <section>
+            <div class="chart-description">
+                <h2>Visualisation 4: Percent Change Histograms</h2>
+                <figure id="Location3"></figure>
+            </div>
+        </section>
+        <section>
+            <div class="chart-description">
+                <h2>Visualisation 5: Machine Learning Performance Comparison</h2>
+                <figure id="Location4"></figure>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function openTab(event, tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const tabLinks = document.querySelectorAll('.tab-link');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabLinks.forEach(link => link.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        let digital_adoption_spec = "plots/vix_line_chart_spec.json";
+        vegaEmbed('#Location1', digital_adoption_spec);
+
+        let stock_analysis = "plots/spy_chart.json";
+        vegaEmbed('#Location2', stock_analysis);
+
+        let histogram = "plots/spy_percent_changes_histogram_normal.json";
+        vegaEmbed('#Location3', histogram);
+        
+        let double_axis = "plots/model_performance.json";
+        vegaEmbed('#Location4', double_axis);
+    </script>
+</body>
+</html>
